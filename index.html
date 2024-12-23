@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+    <title>hello i got places to be</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        height: 100vw;
+    }
+
+    #legend {
+        padding: 10px 20px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        line-height: 5px;
+    }
+
+    .map-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: white;
+        margin: 20px;
+        font-family: 'Courier New', Courier, monospace, sans-serif;
+        overflow: auto;
+        border-radius: 5px;
+    }
+
+    .map-overlay h2 {
+        font-size: 14px;
+    }
+
+    .map-overlay p {
+        display: inline-block;
+        font-size: 12px;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    .legend-dot{
+        display: inline-block;
+        background-color: #8a2be2;
+        height: 12px;
+        width: 12px;
+        border-radius: 0.2vw;
+        margin-bottom: -2px;
+    }
+
+</style>
+<body>
+    <div id="map"></div>
+    <div class="map-overlay" id="legend">
+        <h2>hello, i got places to be</h2>
+        <span class="legend-dot"></span>
+        <p>wandered to</p>
+    </div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoicmFwaGFlbGxldHNlbmciLCJhIjoiY2twcXg2MDYwMGZkYTJ2cGZpNXo2a3ZvaCJ9.BAK0uOJzRZZVsqNAbF3yRA';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [0, 0],
+            zoom: 1
+        });
+        map.on('load', function() {
+            map.addLayer(
+                {
+                    id: 'country-boundaries',
+                    source: {
+                        type: 'vector',
+                        url: 'mapbox://mapbox.country-boundaries-v1',
+                    },
+                    'source-layer': 'country_boundaries',
+                    type: 'fill',
+                    paint: {
+                        'fill-color': '#8a2be2',
+                        'fill-opacity': 0.6,
+                    },
+                },
+                'country-label'
+            )
+            map.setFilter('country-boundaries', [
+                "in",
+                "iso_3166_1_alpha_3",
+                "AUS",
+                "BEL",
+                "BRA",
+                "KHM",
+                "CAN",
+                "CHN",
+                "COL",
+                "FIN",
+                "FRA",
+                "HKG",
+                "IDN",
+                "IRL",
+                "ITA",
+                "LAO",
+                "MYS",
+                "MEX",
+                "MCO",
+                "NLD",
+                "NZL",
+                "PHL",
+                "PRT",
+                "SGP",
+                "CHE",
+                "TWN",
+                "THA",
+                "GBR",
+                "USA",
+                "VNM"
+            ])
+        })
+    </script>
+</body>
+</html>
